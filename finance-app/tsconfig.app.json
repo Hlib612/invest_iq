@@ -16,11 +16,19 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Strict */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Alias */
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src"]
 }

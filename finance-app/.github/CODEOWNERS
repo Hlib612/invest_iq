@@ -1,0 +1,8 @@
+# Заміни @nick-N на реальні GitHub-нікнейми
+/src/types/            @nick-1
+/src/routes/           @nick-2
+/src/app/              @nick-3
+/src/features/         @nick-3
+/src/services/api.ts   @nick-4
+/src/services/mock/    @nick-5
+/.github/              @nick-1
