@@ -12,7 +12,8 @@
 
 body {
   @apply bg-surface text-ink font-sans antialiased;
- 
+}
+
 :root {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   color: #252b3a;
