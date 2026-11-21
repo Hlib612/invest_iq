@@ -12,4 +12,97 @@
 
 body {
   @apply bg-surface text-ink font-sans antialiased;
+ 
+:root {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: #252b3a;
+  background: #f2f4fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 18% 0%, #fff 0, rgb(255 255 255 / 0%) 48%),
+    #f2f4fb;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  display: flex;
+  height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(24px, calc((100% - 1120px) / 2));
+  background: #fff;
+  box-shadow: 0 2px 12px rgb(34 45 76 / 4%);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: #202636;
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  margin-right: 1px;
+  place-items: center;
+  border-radius: 6px;
+  background: #ff701d;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.site-nav a {
+  color: #858b99;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #ff701d;
 }
