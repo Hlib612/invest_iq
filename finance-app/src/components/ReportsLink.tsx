@@ -9,13 +9,13 @@ export function ReportsLink({ className = '' }: Props) {
   return (
     <Link
       to={PATHS.reports}
-      className={`inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-primary ${className}`}
+      className={`inline-flex items-center gap-3 text-sm tracking-wide text-ink/50 transition-colors hover:text-primary ${className}`}
     >
       <span>Перейти до розрахунків</span>
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
-        <rect x="2" y="8" width="3" height="8" rx="0.5" />
-        <rect x="7.5" y="2" width="3" height="14" rx="0.5" />
-        <rect x="13" y="6" width="3" height="10" rx="0.5" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <rect x="2" y="9" width="4" height="9" rx="1" />
+        <rect x="8" y="2" width="4" height="16" rx="1" />
+        <rect x="14" y="6" width="4" height="12" rx="1" />
       </svg>
     </Link>
   );
