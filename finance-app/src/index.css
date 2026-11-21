@@ -1,3 +1,18 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-dark: #4338ca;
+  --color-income: #16a34a;
+  --color-expense: #dc2626;
+  --color-surface: #f8fafc;
+  --color-ink: #0f172a;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  @apply bg-surface text-ink font-sans antialiased;
+ 
 :root {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   color: #252b3a;
