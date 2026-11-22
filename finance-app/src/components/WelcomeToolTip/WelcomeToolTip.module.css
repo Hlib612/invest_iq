@@ -1,0 +1,43 @@
+/* Основне темно-синє віконце тултипу */
+.tooltipContainer {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 0;
+  width: 320px;
+  background-color: #0c1b33; /* Глибокий темно-синій колір як на макеті */
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  font-family: inherit;
+}
+
+/* Стрілочка зверху тултипу */
+.tooltipContainer::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50px; 
+  width: 16px;
+  height: 16px;
+  background-color: #0c1b33;
+  transform: rotate(45deg);
+  border-top-left-radius: 3px;
+}
+
+
+.textMain {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+
+.textSub {
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
