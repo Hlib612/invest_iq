@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "../styles/login-page.module.scss";
-import googleImg from "../assets/loginimg/google.svg";
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { register } from '@/features/auth/authSlice';
 
