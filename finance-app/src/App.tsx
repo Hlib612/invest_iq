@@ -1,11 +1,12 @@
 import DashboardPage from './pages/DashboardPage'
-import { BrowserRouter, Link, Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ReportsPage from './pages/ReportsPage'
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { AppRouter } from '@/routes/AppRouter';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import Header from './components/Header';
 
 export default function App() {
   return (
@@ -14,15 +15,7 @@ export default function App() {
       <ToastContainer position="top-right" autoClose={3000} theme="colored" /> */}
     <BrowserRouter>
       <div className="app-shell">
-        <header className="site-header">
-          <Link className="brand" to="/dashboard" aria-label="InvestIQ — головна">
-            <span className="brand-mark">I</span>NVESTIQ
-          </Link>
-          <nav className="site-nav" aria-label="Головна навігація">
-            <NavLink to="/dashboard">Головна</NavLink>
-            <NavLink to="/reports">Звіти</NavLink>
-          </nav>
-        </header>
+        <Header />
         <Routes>
                    <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/dashboard" element={<DashboardPage />} />
