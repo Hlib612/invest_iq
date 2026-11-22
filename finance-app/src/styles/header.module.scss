@@ -1,0 +1,38 @@
+.header{
+display: flex;
+align-items: center;
+height: 56px;
+background: #FFFFFF;
+width: 100%;
+justify-content: space-between;
+}
+
+.user__img{
+width: 32px;
+height: 32px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+background: #F5F6FA;
+}
+
+.user__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.line{
+width: 0px;
+height: 36px;
+border: 1px solid #E0E5EB;
+
+}
+
+.side__user{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
