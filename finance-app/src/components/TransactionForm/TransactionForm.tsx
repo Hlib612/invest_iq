@@ -9,7 +9,7 @@ import { addTransaction } from '@/services/mock/transactionsApi';
 import type { ICategory, TransactionType } from '@/types';
 import styles from './TransactionForm.module.scss';
 
-// Список категорій для витрат і доходів
+// Категорії для вибору у формі
 const CATEGORIES: ICategory[] = [
   { id: 'food', name: 'Продукти', type: 'expense', color: '#FF751D' },
   { id: 'transport', name: 'Транспорт', type: 'expense', color: '#FF751D' },
@@ -47,7 +47,6 @@ function formatAmountDisplay(rawText: string): string {
   const rawCents = parts[1] ?? '';
   const centsPart = rawCents.slice(0, 2);
 
-  // Додаємо пробіл кожні 3 цифри з кінця (наприклад: 12000 -> 12 000)
   let formattedWhole = '';
   let counter = 0;
 
@@ -67,7 +66,6 @@ function formatAmountDisplay(rawText: string): string {
   return formattedWhole;
 }
 
-// Перетворює рядок ("12 500.50") у звичайне число (12500.5)
 function parseAmountNumber(formattedText: string): number {
   const withoutSpaces = formattedText.split(' ').join('');
   const numberValue = Number(withoutSpaces);
@@ -94,10 +92,8 @@ export function TransactionForm() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Фільтруємо категорії під поточний таб: 'expense' або 'income'
   const filteredCategories = CATEGORIES.filter((item) => item.type === activeTab);
 
-  // Очищення всіх полів форми
   const handleReset = () => {
     setDate(new Date());
     setDescription('');
