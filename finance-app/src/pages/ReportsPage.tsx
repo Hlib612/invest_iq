@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BalanceBar } from '@/components/BalanceBar'
+import { useLoadTransactions } from '@/hooks/useLoadTransactions'
 import {
   reportTransactions,
   type TransactionKind,
@@ -17,6 +19,7 @@ function formatAmount(amount: number) {
 }
 
 function ReportsPage() {
+  useLoadTransactions()
   const [period, setPeriod] = useState(() => new Date(2019, 10, 1))
   const [kind, setKind] = useState<TransactionKind>('expense')
   const year = period.getFullYear()
@@ -89,6 +92,8 @@ function ReportsPage() {
           </div>
         </div>
       </div>
+
+      <BalanceBar showReportsLink={false} />
 
       <section className="period-totals" aria-label="Підсумок за період">
         <p>

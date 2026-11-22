@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/loginimg/logo.svg";
 import styles from "../styles/header.module.scss"
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
