@@ -14,8 +14,7 @@ function DashboardPage() {
   }, [dispatch]);
 
   return (
-    <main className="dashboard-page">
-      <h1>Панель керування</h1>
+    <main className="mx-auto max-w-6xl px-6 py-8">
       <BalanceBar />
       <TransactionForm />
       <p>Переглядайте підсумки доходів і витрат у звітах.</p>
