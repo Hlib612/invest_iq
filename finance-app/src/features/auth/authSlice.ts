@@ -8,7 +8,6 @@ interface AuthState {
   token: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  showBalanceTooltip: boolean;
 }
 
 const initialState: AuthState = {
@@ -16,7 +15,6 @@ const initialState: AuthState = {
   token: storage.getToken(),
   status: 'idle',
   error: null,
-  showBalanceTooltip: false,
 };
 
 export const login = createAsyncThunk<IAuthResponse, ICredentials>(
@@ -36,9 +34,7 @@ export const register = createAsyncThunk<IAuthResponse, IRegisterData>(
     try {
       return await registerUser(data);
     } catch (error) {
-      return rejectWithValue(
-        error instanceof Error ? error.message : 'Помилка реєстрації',
-      );
+      return rejectWithValue(error instanceof Error ? error.message : 'Помилка реєстрації');
     }
   },
 );
@@ -51,16 +47,12 @@ const authSlice = createSlice({
       state.user = payload.user;
       state.token = payload.token;
     },
-    dismissBalanceTooltip(state) {
-      state.showBalanceTooltip = false;
-    },
     logout(state) {
       logoutUser();
       state.user = null;
       state.token = null;
       state.status = 'idle';
       state.error = null;
-      state.showBalanceTooltip = false;
     },
   },
   extraReducers: (builder) => {
@@ -73,7 +65,6 @@ const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = payload.user;
         state.token = payload.token;
-        state.showBalanceTooltip = true;
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -87,7 +78,6 @@ const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = payload.user;
         state.token = payload.token;
-        state.showBalanceTooltip = true;
       })
       .addCase(register.rejected, (state, { payload }) => {
         state.status = 'failed';
@@ -96,5 +86,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, dismissBalanceTooltip, logout } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
