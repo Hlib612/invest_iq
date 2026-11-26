@@ -13,6 +13,36 @@ import {
   DeleteButton,
 } from './TransactionTable.styled';
 
+const CATEGORY_LABELS: Record<string, string> = {
+  food: 'Продукти',
+  transport: 'Транспорт',
+  entertainment: 'Розваги',
+  health: "Здоров'я",
+  clothes: 'Одяг',
+  utilities: 'Комунальні',
+  sport: 'Спорт',
+  cafe: 'Кафе',
+  salary: 'ЗП',
+  'extra-income': 'Дод. прибуток',
+};
+
+function formatDateUA(rawDate: string): string {
+  const parsed = new Date(rawDate);
+  if (Number.isNaN(parsed.getTime())) {
+    return rawDate;
+  }
+  const day = String(parsed.getDate()).padStart(2, '0');
+  const month = String(parsed.getMonth() + 1).padStart(2, '0');
+  const year = parsed.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+
+function formatAmountWithSpaces(value: number): string {
+  const [whole = '0', cents = '00'] = Math.abs(value).toFixed(2).split('.');
+  const withSpaces = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return `${withSpaces}.${cents}`;
+}
+
 interface TransactionRowProps {
   item: ITransaction;
 }
@@ -22,7 +52,8 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isExpense = item.type === 'expense';
-  const formattedAmount = `${isExpense ? '- ' : ''}${Number(item.amount).toFixed(2)} грн.`;
+  const formattedAmount = `${isExpense ? '- ' : ''}${formatAmountWithSpaces(Number(item.amount))} грн.`;
+  const categoryName = CATEGORY_LABELS[item.categoryId] ?? item.categoryId;
 
   const handleConfirmDelete = () => {
     dispatch(deleteTransaction(item.id));
@@ -31,9 +62,9 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ item }) => {
   return (
     <>
       <Tr>
-        <DateCell>{item.date}</DateCell>
+        <DateCell>{formatDateUA(item.date)}</DateCell>
         <DescriptionCell>{item.description}</DescriptionCell>
-        <CategoryCell>{item.categoryId}</CategoryCell>
+        <CategoryCell>{categoryName}</CategoryCell>
         <AmountCell $isExpense={isExpense}>{formattedAmount}</AmountCell>
         <ActionCell>
           <DeleteButton
