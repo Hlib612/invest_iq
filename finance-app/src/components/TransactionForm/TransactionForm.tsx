@@ -9,7 +9,6 @@ import { addTransaction } from '@/services/mock/transactionsApi';
 import type { ICategory, TransactionType } from '@/types';
 import styles from './TransactionForm.module.scss';
 
-// Категорії для вибору у формі
 const CATEGORIES: ICategory[] = [
   { id: 'food', name: 'Продукти', type: 'expense', color: '#FF751D' },
   { id: 'transport', name: 'Транспорт', type: 'expense', color: '#FF751D' },
@@ -23,7 +22,6 @@ const CATEGORIES: ICategory[] = [
   { id: 'extra-income', name: 'Дод. прибуток', type: 'income', color: '#FF751D' },
 ];
 
-// Проста функція: залишає цифри, крапку/кому та розбиває тисячі пробілами
 function formatAmountDisplay(rawText: string): string {
   let cleanText = '';
 
@@ -84,7 +82,6 @@ export function TransactionForm() {
     (state) => state.transactions.activeTab,
   );
 
-  // Стани полів форми
   const [date, setDate] = useState<Date | null>(new Date());
   const [description, setDescription] = useState('');
   const [categoryId, setCategoryId] = useState('');
@@ -93,6 +90,8 @@ export function TransactionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const filteredCategories = CATEGORIES.filter((item) => item.type === activeTab);
+  const isCategoryValidForTab = filteredCategories.some((cat) => cat.id === categoryId);
+  const effectiveCategoryId = isCategoryValidForTab ? categoryId : '';
 
   const handleReset = () => {
     setDate(new Date());
@@ -102,7 +101,6 @@ export function TransactionForm() {
     setError('');
   };
 
-  // Відправка форми
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -113,7 +111,7 @@ export function TransactionForm() {
       return;
     }
 
-    if (categoryId === '') {
+    if (effectiveCategoryId === '') {
       setError('Оберіть категорію');
       return;
     }
@@ -132,7 +130,7 @@ export function TransactionForm() {
       const created = await addTransaction({
         amount,
         type: activeTab,
-        categoryId,
+        categoryId: effectiveCategoryId,
         description: description.trim(),
         date: selectedDate.toISOString(),
       });
@@ -152,9 +150,7 @@ export function TransactionForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      {/* Рядок з полями: Дата, Опис, Категорія, Сума */}
       <div className={styles.row}>
-        {/* Поле 1: Дата */}
         <div className={styles.dateBox}>
           <Calendar size={16} className={styles.iconMuted} />
           <DatePicker
@@ -164,7 +160,6 @@ export function TransactionForm() {
           />
         </div>
 
-        {/* Поле 2: Опис */}
         <input
           type="text"
           className={styles.input}
@@ -173,10 +168,9 @@ export function TransactionForm() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        {/* Поле 3: Категорія */}
         <select
           className={styles.select}
-          value={categoryId}
+          value={effectiveCategoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
           <option value="">
@@ -189,7 +183,6 @@ export function TransactionForm() {
           ))}
         </select>
 
-        {/* Поле 4: Сума */}
         <div className={styles.amountBox}>
           <input
             type="text"
@@ -203,16 +196,19 @@ export function TransactionForm() {
         </div>
       </div>
 
-      {/* Повідомлення про помилку, якщо щось не заповнено */}
       {error !== '' && <p className={styles.error}>{error}</p>}
 
-      {/* Кнопки ВВЕСТИ та ОЧИСТИТИ */}
       <div className={styles.buttons}>
         <button type="submit" className={styles.btnSubmit} disabled={isSubmitting}>
           {isSubmitting ? 'Збереження...' : 'Ввести'}
         </button>
 
-        <button type="button" className={styles.btnReset} onClick={handleReset}>
+        <button
+          type="button"
+          className={styles.btnReset}
+          onClick={handleReset}
+          disabled={isSubmitting}
+        >
           Очистити
         </button>
       </div>
