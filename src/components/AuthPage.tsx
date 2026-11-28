@@ -1,7 +1,7 @@
 import { useState } from "react";
-import LoginPage from "../components/LoginPage"
-import Header from "../components/Header"
-import RegisterPage from "../components/RegisterPage"
+import LoginPage from "./LoginPage"
+import Header from "./Header"
+import RegisterPage from "./RegisterPage"
 
 const AuthPage = () => {
   const [isRegistering, setRegistering] = useState<boolean>(false);
