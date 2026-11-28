@@ -1,15 +1,13 @@
 /* Основне темно-синє віконце тултипу */
 .tooltipContainer {
-  position: absolute;
-  top: calc(100% + 15px);
-  left: 0;
-  width: 320px;
-  background-color: #0c1b33; /* Глибокий темно-синій колір як на макеті */
+  position: relative;
+  width: 260px;
+  max-width: calc(100vw - 32px);
+  background-color: #0c1b33;
   color: #ffffff;
-  padding: 20px;
-  border-radius: 20px;
+  padding: 16px 18px;
+  border-radius: 16px;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
-  z-index: 50;
   font-family: inherit;
 }
 
@@ -17,10 +15,10 @@
 .tooltipContainer::before {
   content: '';
   position: absolute;
-  top: -8px;
+  top: -6px;
   left: 50px; 
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   background-color: #0c1b33;
   transform: rotate(45deg);
   border-top-left-radius: 3px;
@@ -28,15 +26,15 @@
 
 
 .textMain {
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1.4;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-weight: 600;
+  margin: 0 0 6px;
 }
 
 
 .textSub {
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;

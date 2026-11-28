@@ -19,6 +19,11 @@ export function BalanceBar({ onConfirm, showReportsLink = true }: Props) {
   const showBalanceTooltip = useAppSelector((state) => state.auth.showBalanceTooltip);
   const tooltipWrapperRef = useRef<HTMLDivElement | null>(null);
 
+  const handleConfirm = () => {
+    dispatch(dismissBalanceTooltip());
+    onConfirm?.();
+  };
+
   useEffect(() => {
     if (!showBalanceTooltip) return;
 
@@ -40,17 +45,18 @@ export function BalanceBar({ onConfirm, showReportsLink = true }: Props) {
   }, [showBalanceTooltip, dispatch]);
 
   return (
-    <div className="mb-6 grid items-center gap-4 md:grid-cols-3">
+    <div className="relative mb-6 grid items-center gap-4 md:grid-cols-3">
       <div className="hidden md:block" />
-      <div className="relative flex items-center justify-center gap-3 justify-self-center">
+      <div className="relative flex items-center justify-center gap-3 justify-self-center max-sm:w-full">
         <span className="text-xs text-ink/60">Баланс:</span>
-        <div className={`${pill} min-w-36 text-center text-xs font-semibold`}>
+        <div className={`${pill} min-w-36 text-center text-xs font-bold text-ink`}>
           {formatMoney(balance)} UAH
         </div>
         <button
           type="button"
-          onClick={onConfirm}
-          className={`${pill} text-xs uppercase tracking-wide text-ink/40 transition-colors hover:text-primary`}
+          onClick={handleConfirm}
+          className={`${pill} border-[#f5f6fb] bg-[#f5f6fb] text-xs font-bold uppercase tracking-wide text-ink/60 transition-colors hover:border-[#ff751d] hover:bg-[#ff751d] hover:text-white`}
+          aria-label="Підтвердити поточний баланс"
         >
           Підтвердити
         </button>
