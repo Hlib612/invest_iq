@@ -10,10 +10,16 @@ import { Summary } from '@/components/Summary/Summary';
 function DashboardPage() {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.transactions.activeTab);
+  const transactions = useAppSelector((state) => state.transactions.items || []);
 
   useEffect(() => {
     getTransactions().then((items) => dispatch(setTransactions(items)));
   }, [dispatch]);
+
+  // Фільтруємо транзакції залежно від активної вкладки (expense / income)
+  const filteredTransactions = transactions.filter(
+    (item) => item.type === activeTab
+  );
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-8">
@@ -51,7 +57,18 @@ function DashboardPage() {
 
           <div className="mt-8 flex flex-col items-start gap-8 lg:flex-row">
             <div className="w-full flex-1">
-              <TransactionTable />
+              {filteredTransactions.length > 0 ? (
+                <TransactionTable />
+              ) : (
+                <div className="flex flex-col items-center justify-center rounded-2xl bg-[#F5F6FB] py-12 px-4 text-center">
+                  <p className="text-sm font-medium text-[#52555F]">
+                    Транзакцій поки немає
+                  </p>
+                  <p className="mt-1 text-xs text-[#A6ABB9]">
+                    Додайте першу транзакцію за допомогою форми вище.
+                  </p>
+                </div>
+              )}
             </div>
             <Summary />
           </div>

@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { dismissBalanceTooltip } from '@/features/auth/authSlice';
-import { useBalance } from '@/hooks/useBalance';
+import { useState, type FormEvent } from 'react';
+import { useAccountBalance } from '@/hooks/useBalance';
 import { formatMoney } from '@/utils/formatMoney';
+import { notify } from '@/services/notify';
 import { ReportsLink } from './ReportsLink';
-import { WelcomeTooltip } from './WelcomeToolTip/WelcomeToolTip';
 
 interface Props {
   onConfirm?: () => void;
@@ -14,10 +12,9 @@ interface Props {
 const pill = 'rounded-full border-2 border-white bg-white px-5 py-2 shadow-sm';
 
 export function BalanceBar({ onConfirm, showReportsLink = true }: Props) {
-  const dispatch = useAppDispatch();
-  const balance = useBalance();
-  const showBalanceTooltip = useAppSelector((state) => state.auth.showBalanceTooltip);
-  const tooltipWrapperRef = useRef<HTMLDivElement | null>(null);
+  const { balance, confirm } = useAccountBalance();
+  const [draft, setDraft] = useState<string | null>(null);
+
 
   const handleConfirm = () => {
     dispatch(dismissBalanceTooltip());
@@ -27,22 +24,19 @@ export function BalanceBar({ onConfirm, showReportsLink = true }: Props) {
   useEffect(() => {
     if (!showBalanceTooltip) return;
 
-    const handleOutsideClick = (event: MouseEvent) => {
-      const target = event.target as Node | null;
-      if (
-        tooltipWrapperRef.current &&
-        target &&
-        !tooltipWrapperRef.current.contains(target)
-      ) {
-        dispatch(dismissBalanceTooltip());
-      }
-    };
+  const parsed =
+    draft === null ? NaN : Number(draft.replace(/\s/g, '').replace(',', '.'));
+  const canConfirm =
+    draft !== null && draft.trim() !== '' && Number.isFinite(parsed) && parsed !== balance;
 
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [showBalanceTooltip, dispatch]);
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!canConfirm) return;
+    confirm(parsed);
+    setDraft(null);
+    notify.success('Баланс підтверджено');
+    onConfirm?.();
+  }
 
   return (
     <div className="relative mb-6 grid items-center gap-4 md:grid-cols-3">
@@ -60,16 +54,7 @@ export function BalanceBar({ onConfirm, showReportsLink = true }: Props) {
         >
           Підтвердити
         </button>
-
-        {showBalanceTooltip && (
-          <div
-            ref={tooltipWrapperRef}
-            className="absolute top-full left-1/2 z-30 mt-3 -translate-x-1/2"
-          >
-            <WelcomeTooltip />
-          </div>
-        )}
-      </div>
+      </form>
       <div className="justify-self-center md:justify-self-end">
         {showReportsLink && <ReportsLink className="text-xs" />}
       </div>

@@ -1,0 +1,29 @@
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.page__transition {
+  animation: fadeSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  tbody tr {
+    animation: fadeSlideIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  button,
+  input,
+  select,
+  tbody{
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+  }
+}

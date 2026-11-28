@@ -1,11 +1,41 @@
 import styled from 'styled-components';
 
-export const TableWrapper = styled.div`
+export const TableScrollBox = styled.div`
   width: 100%;
   max-width: 746px;
-  background-color: #ffffff;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
   border-radius: 20px 20px 0 0;
-  overflow: hidden;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #ff7506 #f5f6fb;
+
+  /* Chrome, Edge, Safari */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f5f6fb;
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ff7506;
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #e56705;
+  }
+`;
+
+export const TableWrapper = styled.div`
+  width: 100%;
+  background-color: #ffffff;
 `;
 
 export const Table = styled.table`
@@ -14,6 +44,9 @@ export const Table = styled.table`
 `;
 
 export const TableHead = styled.thead`
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: #f5f6fb;
   height: 40px;
 `;
@@ -89,4 +122,13 @@ export const DeleteButton = styled.button`
     background-color: #f5f6fb;
     color: #e7192e;
   }
+`;
+
+export const EmptyStateBox = styled.div`
+  padding: 48px 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #52555f;
+  background-color: #ffffff;
 `;
