@@ -6,6 +6,7 @@ import { getTransactions } from '@/services/mock';
 import TransactionForm from '@/components/TransactionForm/TransactionForm';
 import { TransactionTable } from '@/components/Transiction/TransactionTable';
 import { Summary } from '@/components/Summary/Summary';
+import "../styles/animation.scss"
 
 function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -46,7 +47,7 @@ function DashboardPage() {
           </button>
         </div>
 
-        <div className="rounded-b-[30px] rounded-tr-[30px] bg-white p-6 shadow-[0_10px_60px_rgba(170,178,197,0.2)] lg:p-8">
+        <div className="rounded-b-[30px] rounded-tr-[30px] bg-white p-6 shadow-[0_10px_60px_rgba(170,178,197,0.2)] lg:p-8 page__transition">
           <TransactionForm />
 
           <div className="mt-8 flex flex-col items-start gap-8 lg:flex-row">
